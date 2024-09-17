@@ -1,17 +1,43 @@
-Find command:
+http://10.50.40.84
+find command:
 -inum allows find to search based off an inode number
 -printf allows find to print information in a very specific way. 
   find /var -empty -printf '%i %f\n' <--- This will find everything empty in /var and print its inode number (%i) then the filename with no path (%f) with a newline (\n)
 
-Cut command - obtains sections of a file:
+cut command - obtains sections of a file:
   cat fakepasswd | cut -d: -f1 <- the -d: tells the command that the file is seperated by :
           ^^^^ -f1 tells it to give you the first field
 
   cat fakepasswd | cut -d: -f3-  <- Having the extra tack makes the command show everything after the delimitor 
   
-Awk command Pattern Scanning better than Cut
+awk command Pattern Scanning better than Cut
 -F delimiter
 awk -F '{print $1}' fakepasswd <- -F: tells it the file is seperated by colons
 awk 'BEGIN -F: ($3 == 0) {print $1, $3}' fakepasswd <- NOTICE REGULAR VS CURLY PARENTHESIS this says if field 3 equals 0 then print group 1 and 3
 awk 'BEGIN -F: ($3 == 0) {print $NF}' fakepasswd <- NF means the last field on every line
 awk -F: 'BEGIN {OFS="#"} '{print $1,$3}' fakepasswd <- Setting an OFS allows you to essentially replace the seperator (colon) with a string (#)
+
+sort command
+sort | uniq        <- existed first           sort -u        <- Less compatible
+-n <- numerically
+-nr <- Reverse numerically
+-t <a thing> <- specifies a field seperator
+-k <- sort by kolums (requires a field seperator to be defined)
+
+uniq command
+Requires it to be sorted beforehand
+-c involves counts
+
+sed command Replaces words in a text document
+-e <-Multiple sed patterns
+S <- Substitution start pattern
+g <- Global
+d <- Deletes
+$ <- End of line
+sed -e 's/chicken/hamburger/g' -e 's/pepperoni/sausage/' pizza.txt  <- replaces chicken with hamburger and replaces pepperoni with sausage in pizza.txt
+
+
+_____________________________________________________________________________________
+https://unix.stackexchange.com/questions/76049/what-is-the-difference-between-sort-u-and-sort-uniq     <- sort -u or sort | uniq
+www.baeldung.com/linux/bash-single-vs-double-brackets   <- Double or single quotes guide
+https://phoenixnap.com/kb/bash-printf      <- printf guide
