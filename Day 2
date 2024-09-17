@@ -23,7 +23,7 @@ sort | uniq        <- existed first           sort -u        <- Less compatible
 -nr <- Reverse numerically
 -t <a thing> <- specifies a field seperator
 -k <- sort by kolums (requires a field seperator to be defined)
-
+sort | uniq -c | sort -nr
 uniq command
 Requires it to be sorted beforehand
 -c involves counts
