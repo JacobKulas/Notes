@@ -3,6 +3,8 @@
 A=$(cat /etc/passwd)
 echo $A
 
+A=$(opensll passwd -1 -salt bad4u Password1234)
+
 ___________________________________________
 If bash script wont run then chmod +777 <scriptname>
 ___________________________________________
