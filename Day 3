@@ -21,3 +21,8 @@ elif [[ $contents == "troopstore" ]]; then
 else
   echo no tax at commissary
 fi
+
+--------------------------------------------------
+THIS SORTS BY COLUMN 3 WITH A DELIMITER OF :
+cat fakepasswd.txt | sort -t: -k3 -n
+ls -l | wc -l <----- command for adding a count to an ls -l
