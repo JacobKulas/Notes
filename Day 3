@@ -1,0 +1,21 @@
+#!/bin/bash
+
+A=$(cat /etc/passwd)
+echo $A
+
+___________________________________________
+If bash script wont run then chmod +777 <scriptname>
+___________________________________________
+
+sable or reserved (case-insensitive)#!/bin/bash
+
+contents=$(cat simple2.txt)
+if [[ $contents == "tacos" ]]; then
+    echo only on tuesdays
+elif [[ $contents == "costco" ]]; then 
+  echo is cool but expensive
+elif [[ $contents == "troopstore" ]]; then
+  echo always crowded
+else
+  echo no tax at commissary
+fi
