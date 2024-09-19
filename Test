@@ -1,1 +1,9 @@
 mkdir 11{23,34,45,56} 
+touch $HOME/1123/{1..5}.txt $HOME/1123/{6..9}~.txt
+find $HOME/1123 -name '*.txt'
+find $HOME/1123 -name '*.txt' | grep -v '~'
+find / -inum 4026532575 -printf "%f\n" 2>/dev/null
+ls -l ~/CUT | cut -d. -f1- -s | cut -d' ' -f9 -s > ~/CUT/names
+grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" StoryHiddenIPs | sort | uniq -c | sort -nr
+awk -F: '($3 > 3 && $NF == "/bin/bash") {print $1}' ~/passwd > ~/SED/names.txt
+dmesg | grep -E "CPU|BIOS" | egrep -v 'usable|reserved' | cut -d] -f2-
