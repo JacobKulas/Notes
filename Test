@@ -11,3 +11,14 @@ dmesg | grep -E "CPU|BIOS" | egrep -v 'usable|reserved' | cut -d] -f2-
 12-14 Oct24 (More than likely)
 9-11 Nov Veterans Day (Probably not)
 28-1 Dec Thanksgiving
+
+TEST REVIEW
+-------------
+ls -1 means one per line
+tar -cvf
+find -exec tar -czf $var {} +  <- makes a zip file (the '+' might be a '\;'        -maxdepth is cool too
+2>/dev/null
+touch -d <-date time
+touch -t <-time
+rm -rf
+pkill
