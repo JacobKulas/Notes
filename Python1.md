@@ -46,3 +46,20 @@ else:
   print('yafatha')
 
 a = email.split('.')
+
+def Commands()    
+ 2     while True:
+ 3         user = input("Type 'Pass', 'Break', 'Continue', or 'Return':\n").lower()
+ 4         if user == 'pass':
+ 5             pass
+ 6             print('This is pass.')
+ 7         elif user == 'break':
+ 8             break
+ 9             print('This is break')
+10         elif user == 'continue':
+11             continue
+12             print('This is continue')
+13         elif user == 'return':
+14             return 'This is return'
+15         else:
+16             print('Please choose a valid option')
