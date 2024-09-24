@@ -63,3 +63,13 @@ def Commands()
 14             return 'This is return'
 15         else:
 16             print('Please choose a valid option')
+
+list(range(0,11,2)) <- Goes from 0 to 11 by increments of 2
+
+catalog - {'Apex': 50,'Cod':79.99,'MVP':154.99,'Tarkov':200} <- Each of the game names is a key, the number are associated with them
+order = [('MVP', 5),('Tarkov',2)] <- two lists inside one list
+for i in order;
+  print(catalog[i[0]] * i[1])      #<- This says that for every item in order (The items are lists) take the first things from said list. Then multiply it by the second thing in that list.
+  total += catalog[i[0]] * i[1]    #<- This says that each time the loop runs it will add to the variable total
+print(total)
+  
