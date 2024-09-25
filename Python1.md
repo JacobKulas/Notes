@@ -72,4 +72,49 @@ for i in order;
   print(catalog[i[0]] * i[1])      #<- This says that for every item in order (The items are lists) take the first things from said list. Then multiply it by the second thing in that list.
   total += catalog[i[0]] * i[1]    #<- This says that each time the loop runs it will add to the variable total
 print(total)
-  
+
+OPEN METHODS
+  r 'read'
+  w 'write'
+'''
+fp = open('test.txt')
+fp.close()
+'''
+fp.read(5) reads the first 5 characters
+fp.readline() reads lines
+fp.readlines() reads lines and makes them a list
+print(line, end='**') <- print each line then add **
+----------------------------------------------------------------------------------- <- This script writes first line second line\n, third line\n, fourth line\n last line\n to a document called test.txt
+with open("test.txt",'w') as fp:
+  fp.write('First line'\)
+  lines = ['Second line\n', 'Third line\n', 'Fourth line\n', 'Last line\n'] 
+  fp.writelines(lines)
+  pass
+------------------------------------------------------------------------------------
+with open('school_prompt.txt','r') as fp:
+    p_words = []
+    for word in fp:
+        for letter in word.split():
+            if 'p' in letter:
+                p_words.append(letter)
+---------------------------------------------------
+with open('travel_plans.txt','r') as fp:
+    first_chars = fp.read(33)
+--------------------------------------------------
+with open('emotion_words.txt','r') as fp:
+  emotions = []
+  for l in fp.readlines():
+      emotions.append(l.split(' ')[0])
+---------------------------------------------------
+with open('school_prompt.txt','r') as fp:
+    three = []
+    for l in fp.readlines():
+        three.append(l.split(' ')[2])
+---------------------------------------------------
+with open('emotion_words.txt','r') as fp:
+     num_words = len(fp.read().split())
+---------------------------------------------------
+ord
+chr
+'1'.isnumeric -> true   These work only on strings
+'a'.isnumeric -> false
