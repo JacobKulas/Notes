@@ -164,23 +164,98 @@ for num in numlist:
     return(False)
 return(True)
     
+#Given an email:
+#<first>.<m>.<last>@<domain>.com
+# return the 4 parts of the email as a tuple the same way they appear.
+a = 'Jacob.t.kulas@gmail.com'
+b = a.split('.')
+f = b[0]
+mi = b[1]
+ldom = b[2].split('@')
+l = ldom[0]
+dom = ldom[1]
+tpl = (f, mi, l, dom)
+print(tpl)
+#Given a string make a dictionary whose keys are the set of unique characters within the string and whose values are the count of occueances of each chatacter
+a = 'Your mother is a very kind person'
+count = 0
+dict = {}
+for letter in a:
+    dict[letter] = a.count(letter)
+print(dict)
+#Return your last name as a string:
+print('kulas')
+
+Given a list and a number of items return a new list containing the last n entries in lst
+
+lst = [1, 2, 3, 4, 5, 6, 7]
+n = 3
+    print(lst[-n::])
 
 
+return the surface area of a sphere after being given the radius. The formula for SA of a sphere is provided
+
+return(4*3.14159*(radius**2))
 
 
+Given an IPv4 address as a string in dotted decimal notation,
+# return True if the address is multicast, otherwise return False.
+# IPv4 multicast addresses are those in the range 224.0.0.0 to
+# 239.255.255.255.
+# ipaddress.IPv4Address has been disabled for this function.
+addr = '240.64.33.123'
+a = addr.split('.')
+b = int(a[0])
+if 224 <= b <= 239:
+    print(True)
+else:
+    print(False)
+
+Return List of well known ports. Well known ports are 0 through 1023
+lst = []
+for x in range(1024):
+    lst.append(x)
+print(lst)
 
 
+You're given 'zero' 'one' 'two' 'three' or 'four', Turn them into their integer
+a = input('What number?: ')
+if a == 'zero':
+    print(0)
+elif a == 'one':
+    print(1)
+elif a == 'two':
+    print(2)
+elif a == 'three':
+    print(3)
+elif a == 'four':
+    print(4)
+
+Read a string and extract the number then convert it to integer and return it. Assume every string has a number
+a = 'I a in love2 with a bea4utiful g1rl wh0 actually want$ m3' #input('input a string with a number in it: ')
+lst = []
+for letter in a:
+    if letter == '1' or letter == '2' or letter == '3' or letter == '4' or letter == '5' or letter == '6' or letter == '7' or letter == '8' or letter == '9' or letter == '0':
+        lst.append(int(letter))
+print(sum(lst))
+print(lst)
+
+Take a name and domain then print an email adress First.M.Last@Domain.com All lowercase. They will give a full middle name, only take the middle inital
+fn = (input('Whats your First name?: ')).lower()
+mn = (input('Whats your middle name?: ')).lower()
+m = mn[0]
+ln = (input('Whats your last name?: ')).lower()
+dom = (input ('Whats your domain?: ')).lower()
+print('{}.{}.{}@{}.com'.format(fn,m,ln,dom))
 
 
-
-
-
-
-
-
-
-
-
+Copy the contents of infile to outfile overwrite it if it doesn't exist
+infile = input('What file to read?: ')
+outfile = input('What file to copy to?: ')
+with open (infile) as fp:
+    a = fp.read()
+with open (outfile,'w') as fp:
+    fp.write(a)
 
 
 def q1(floatstr):
@@ -304,5 +379,139 @@ def q10(numlist):
 153     numbers in the list are NOT negative. If any numbers in the list are
 154     negative, return False.
 155     '''
+def q1(radius):
+    # Given the radius of a sphere, calculate and return 
+    # its surface area. Surface area is given by the following:
+    # A = 4*PI*(r**2) where PI is the constant 3.14159 and r
+    # is the radius of the sphere.
 
+    return 4*3.14159*(radius**2)
+
+    pass
+    
+def q2(addr):
+    # Given an IPv4 address as a string in dotted decimal notation,
+    # return True if the address is multicast, otherwise return False.
+    # IPv4 multicast addresses are those in the range 224.0.0.0 to
+    # 239.255.255.255.
+    # ipaddress.IPv4Address has been disabled for this function.
+    counter = 0
+    arr = addr.split('.')
+    if int(arr[0]) >= 224 and int(arr[0]) <= 239:
+        return True
+    else:
+        return False
+    if counter == 1:
+        return True
+
+
+    #pass
+
+def q3():
+    # Return the well-known ports as a list of integers.
+    # Ports 0 through 1023 are considered well-known.
+
+    arr = []
+    for x in range(1024):
+        arr.append(x)
+    return arr
+
+    pass
+
+def q4(number):
+    # Given a string for a number spelled out as a word,
+    # return the number as an integer. The number will
+    # only be 'zero','one','two','three', or 'four'.
+
+    if number == 'zero':
+        return 0
+    elif number == 'one':
+        return 1
+    elif number == 'two':
+        return 2
+    elif number == 'three':
+        return 3
+    elif number == 'four':
+        return 4
+
+
+    pass
+
+def q5():
+    # Read a string from the user and return the integer conversion of it.
+    # Ensure the conversion is successful by removing any non-numeric characters.
+    # You may assume that the input will contain at least 1 numeric character.
+    bruh = ''
+    arr = ['0','1','2','3','4','5','6','7','8','9']
+    a = input()
+    for x in list(a):
+        if x in arr:
+            bruh += x
+        else:
+            continue
+    return int(bruh)
+
+
+    pass
+
+def q6(first,middle,last,domain):
+    # Given a name and domain, print to the screen their email address.
+    # The address should take the form: 
+    # <first>.<middle initial>.<last>@<domain>.com
+    # Only include a middle initial (the first letter of the middle name).
+    # Ensure the address is all lowercase.
+    # Append '.com' to the given domain.
+    
+    print(f'{first.lower()}.{middle[0]}.{last.lower()}@{domain}.com')
+
+
+    pass
+
+def q7(infile,outfile):
+    # Copy the contents of the file whose filename is given in 
+    # infile to the file whose name is given in outfile. Overwrite
+    # outfile if it already exists.
+    # shutil.copyfile, copy, and copy2 have been disabled for this function.
+    with open(infile, 'r+') as fp, open(outfile, 'w') as out:
+        out.write(fp.read())
+            
+
+    pass
+
+def q8(address):
+    # Given an email address of the form:
+    # <first>.<middle initial>.<last>@<domain>.com
+    # return the 4 elements of the address as a tuple in the order
+    # that they appear in the address.
+    # For example, if given 'nicholas.r.yost@somedomain.com,
+    # ('nicholas','r','yost','somedomain') should be returned.
+
+    
+    return tuple((address.replace('.com','')).replace('@','.').split('.'))
+
+    pass
+
+def q9(strng):
+    # Given a string, return a dictionary whose keys are the set of
+    # unique characters within the string and whose values are the
+    # count of occurances of each character.
+    # For example, if given 'hello', the returned dictionary should be
+    # { 'l':2, 'h':1, 'e':1, 'o':1 }
+    # collections.Counter has been disabled for this function.
+    count = 0
+    dict = {}
+    for x in list(strng):
+        dict[x] = strng.count(x)
+    return dict
+    
+    pass    
+
+def q10():
+    # Return your last name as a string. Use all lowercase letters.
+    pass
+
+    return 'hunt'
+
+if __name__ == '__main__':
+    pass
 
