@@ -1,0 +1,92 @@
+10.50.27.52
+Powershell? The OS?
+----------------
+In powershell everything is an object
+Get-Process | Get-Member gets the methods of whatever process
+Get-Date <- gets the date
+<cmdlet>.datetime
+(cmdlet).property Gives you the properties of the cmdlet
+(get-process).name simplifies every process running down to just its name
+$_ <- this is the last object from the pipeline
+$? <- If the last command executes it is true, if it did not run then it is false.
+ARRAYS: $A = 22, 5, 18, 44,  
+        $B = 1..5  <- This equals every number between 1 and 5 including those two numbers.
+start-process <processname>
+stop-process -name <processname>
+Get-Process | Get-Member | Where-Object {$_.Membertype -match ""Method}
+
+do <statement> while <condition>
+do <statement> until <condition>
+
+for (<Init>; ,<Condition>; ,<Repeat>)
+{
+  <statement>
+}
+
+foreach 
+GOTTA RESEARCH
+
+while (<condition>) (<statement list>)
+{
+<statement>
+}
+
+Remove-Item <doesnt exist> -ErrorAction SilentlyContinue  <- If you try to delete an item then this will make it not say an error message
+Remove-Item <exists> -verbose <- Confirms with a success message that something happened
+
+
+You might find some executables or binaries in these:
+HKCU - Basically just a subkey of HKU, the one for the currently logged in user - Symbolic link <- Just go to HKU unless it tells you to look specifically at the curently logged in user
+HKU - Users - has a subkey for each user on the computer
+  User Env settings
+  Shortcuts
+  File associations
+HKLM - Whole computer. 
+  HARDWARE
+  SAM
+  Security - asscessed via lsass.exe
+  System
+HKCC - Current Config - a symbolic link to the coniguration from HKLM
+HKCR - Classes Root - references HKLM
+
+SID 1232432314-15154235243-1002
+                          ------ Only the 1002 matters
+
+various registry commands:
+reg query
+reg add
+reg delete
+
+For finding a subkey use gci <Reg entry>
+For find a value use Get-item <Reg entry>
+
+net use * http://live.sysinternals.com <- creates a network share to sysinternals
+Type *autoruns -accepteula* <- Throw this into autoruns or it wont work
+Get -PSDrive gets the current PSDrive
+
+Registry locations of interest
+
+
+if (<test1) 
+  <statement>
+elseif (<test2>)
+  <statement>
+else
+  <statement>
+
+$Myvraiable = 1, 2, 3
+
+BASH PROFILES ARE A GREAT PLACE FOR PERSISTENCE.
+-----------------------------------------------------
+All Users, All Hosts
+	$PsHome\Profile.ps1
+
+All Users, Current Host
+	$PsHome\Microsoft.PowerShell_profile.ps1
+
+Current User, All Hosts
+	$Home\[My]Documents\Profile.ps1
+
+Current User, Current Host
+	$Home\[My ]Documents\WindowsPowerShell\Profile.ps1
+-----------------------------------------------------
