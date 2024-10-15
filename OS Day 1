@@ -95,3 +95,14 @@ Current User, All Hosts
 Current User, Current Host
 	$Home\[My ]Documents\WindowsPowerShell\Profile.ps1
 -----------------------------------------------------
+Find the description for a service:
+Get-CimInstance Win32_Service -Filter 'Name = "LegoLand"' | Format-List Name, Description
+
+Get word count for a text document
+get-content words2.txt | Measure-object -word 
+
+Find the number of files in a directory
+(gci videos).count
+
+Compare two different text files to see what is different
+compare-object (get-content old.txt) (get-content new.txt) | out-file C:\Users\CTF\Downloads\compare.txt
