@@ -35,6 +35,9 @@ Remove-Item <doesnt exist> -ErrorAction SilentlyContinue  <- If you try to delet
 Remove-Item <exists> -verbose <- Confirms with a success message that something happened
 
 
+Get-Content .\test.txt -Stream secret.vbs
+
+
 You might find some executables or binaries in these:
 HKCU - Basically just a subkey of HKU, the one for the currently logged in user - Symbolic link <- Just go to HKU unless it tells you to look specifically at the curently logged in user
 HKU - Users - has a subkey for each user on the computer
