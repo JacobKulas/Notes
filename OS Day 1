@@ -106,3 +106,55 @@ Find the number of files in a directory
 
 Compare two different text files to see what is different
 compare-object (get-content old.txt) (get-content new.txt) | out-file C:\Users\CTF\Downloads\compare.txt
+
+Check a directory for alternate data streams and read it
+gci -recurse | % { gi $_.FullName -stream * } | where stream -ne ':$Data'
+get-content <insert PSChildname>
+
+Get-content but for all the hidden files in a directory
+gci -recurse C:\Users\Ctf -attribute h | get-content
+
+Shows the groups respective permissions for a file
+get-acl -path C:\Windows\System32\drivers\etc\hosts | select-object -ExpandProperty Access | Where-objec
+t {$_.FileSystemRights -like "*Read*"}
+
+
+
+Day 2
+--------------------------------------------------------------------------------------------------------------
+session 0 is Kernel
+session 1 is user
+
+UEFI is BIOS but newer
+
+Once the BIOS checks hardware, it finds the MBR (Master Boot Record). The MBR contains Disk Partitions like /dev/sda1 or DISK 1 C:\
+Get-Content C:\Windows\Panther\Setupact.log | Select-String "Detected boot environment"  <- command to find if your system is BIOS or UEFI
+
+smss is part of the startup process and splits into session 0 and session 1. Session 0 is kernel layer and can do system level stuff, session 1 is for the user..
+bcdedit shows the boot loader
+bcdedit /set <value>
+bcdedit /deletevalue <value>
+
+Gets modules for chrome ->Get-Process chrome | foreach {$_.modules} | more
+SCHEDULED TASKS ARE A GOOD PLACE FOR PERSISTENCE.
+
+Process lists have:
+mispelled names: scvhost vs svchost
+Incorrect directories: Program Files runs third party things, system runs system things, downloads runs things from the internet which can be bad to go
+Incorrect ports: HTTP runs on 80 or 8080
+Important processes should only pop up once
+System processes should have low PIDs
+DLLs are cool, just not on the test
+
+strings -a C:\users\andy.dwyer\Desktop\<doc>.txt <- use this to look through binaries texts
+^ - strings requires eulaaccept
+get sysinternals
+-------------------------------------------------------------------------
+PS C:\Users\andy.dwyer\Desktop> $wc = new-object System.Net.WebClient 
+
+PS C:\Users\andy.dwyer\Desktop> $wc.DownloadFile("https://download.sysinternals.com/files/SysinternalsSuite.zip",
+"$pwd\SysinternalsSuite.zip") 
+
+Sysinternals are proc monitor and shit like that
+
+PS C:\Users\andy.dwyer\Desktop> Expand-Archive SysinternalsSuite.zip 
