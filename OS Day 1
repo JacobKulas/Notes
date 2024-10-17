@@ -192,6 +192,7 @@ exceute on a folder means you can change directories to it
 
 /proc/directory has a file for every process 
 
+
 All of these could have persistence
 -----------------------------------
 /var/spool/cron/crontabs/
@@ -235,6 +236,11 @@ DLLs are cool, just not on the test
 strings -a C:\users\andy.dwyer\Desktop\<doc>.txt <- use this to look through binaries texts
 ^ - strings requires eulaaccept
 get sysinternals
+
+sysinternals has:
+TCPView - Shows details about connections
+Closed, Listen, Syn Sent, Syn Recieved, Established, Fin wait 1, Fin wait 2, Close Wait, Closing, Ack, Time Wait, Delete TCB 
+AutoRuns - shows registry things running
 -------------------------------------------------------------------------
 PS C:\Users\andy.dwyer\Desktop> $wc = new-object System.Net.WebClient 
 
