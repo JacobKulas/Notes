@@ -118,6 +118,92 @@ Shows the groups respective permissions for a file
 get-acl -path C:\Windows\System32\drivers\etc\hosts | select-object -ExpandProperty Access | Where-objec
 t {$_.FileSystemRights -like "*Read*"}
 
+UAC Registry Keys:
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+
+Linux Essentials:
+arp - shows mac addrs of devices on network
+route - shows where packets will be routed
+--help
+man - manual for a command
+dont cat /bin or /sbin it dont work
+etc has network configurations, daemons, firewall configurations, etc.
+/etc/group contains what groups each user is apart of
+Permissions. U G O user/owner  group   other
+U   G   O
+rwx rwx rwx
+Sticky Bit - The only person who can delte a file with the sticky bit is the owner and root
+s in UGO Means they can run it with the same permissions as the owner
+awk seperates uses delimeters and can format
+sed is similar to awk
+
+Linux Boot Process:
+1st stage bootloader
+MBR
+bootstrap code area 446 bytes
+Partition entry 1    16 bytes
+2		     16 bytes
+3                    16 bytes
+4                    16 bytes
+boot signature		    16
+
+/dev/vda has the contents of the MBR
+dd if=/dev/vda of=MBRcopy bs=512 count=1 <- Making a copy of the MBR <- This will probably fail
+sudo !!                   -- <- Block size
+
+sudo xxd -1 512 -g 1 /dev/vda <- examining the contents of MBR
+
+UEFI uses GPT which supports an ungodly amount of paritions
+Linnux uses system calls
+
+/etc/init is the configuration file for the init process, there can definetly be PERSISTENCE HERE It tells you what level your system will be running on
+Cat the levels themselves. S levels will be where persistence is.
+
+for systemd the init process configuration file is /usr/lib/systemd/system
+READ ABOUT SYSTEMD
+
+/etc/environment can mess with the path variable which means there could be persistence here
+/etc/profile is a script that loads whenever a user logs in with an interactive shell. THIS CAN HAVE PERSISTENCE
+.bash/profile and .bashrc could have persistence as they run during logon. 
+
+
+Process validity Linux: 
+top is live processes in linux
+ps -elf to show processes
+htop is top but human readable
+S, PID, PPID, CMD <- important parts of ps -elf
+kthreadd is a kernel process, dont worry about it
+/sbin/init processes have a PID of 1 <- worry about it
+
+Ring 0 kernel
+EUID -effective
+RUID - real
+UID  - user
+
+fork creates a new process which is refered to as a chld process
+exec runs a process
+
+kill -9 PID 
+pkill -i PNAME
+
+ps --ppid 1 <- shows orphans that could be malware posing as a daemon
+
+exceute on a folder means you can change directories to it
+
+/proc/directory has a file for every process 
+
+All of these could have persistence
+-----------------------------------
+/var/spool/cron/crontabs/
+/etc/cron.d
+/etc/crontab
+
+CRONJOB
+FOLLOWING PARENT PROCESSES
+Order:
+Scheduled tasks
+Profiles
+
 
 
 Day 2
