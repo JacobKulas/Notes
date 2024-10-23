@@ -9,11 +9,11 @@ Linux Persistence
   Open this up and look around
 -/etc/environment
 -/etc/inittab <- has Sysv
-/etc/rc.d/rc0.d/  <- This is for run level 0. Ls without 'rc0.d' for a list of available run levels
+/etc/rc0.d/  <- This is for run level 0. Ls without 'rc0.d' for a list of available run levels
 /lib/systemd/systemd   <- One of these has systemd which can have a script embedded in it
-/usr/lib/systemd/system '                         '
+/usr/lib/systemd/system <- One of these has systemd which can have a scripy embedded in it
 -Services/Processes
-  ps -elf
+  ps -elf <- When grepping here use quotes around what you're searching
   top or htop
   systemctl (start | stop | status)
   CRON IS A SERVICE
@@ -23,8 +23,8 @@ Windows Persistence
 ------------------------------------------
 -Scheduled Tasks
 Look through Task Scheduler. Look through all the scheduled tasks' actions. Very well may be obfuscated. Might be GoogleUpdate. Spotify, netflix, steam, etc. Entertainment on a government laptop is not a thing.
--Registry locations
-
+-Registry locations(New-Object System.Security.Principal.NTAccount('<UserName>')).Translate([System.Security.Principal.SecurityIdentifier]).Value
+Figure out the SID of the only Totally-Legit service.
 -Powershell Profiles
   4 of these
   allusers/allhost
@@ -66,6 +66,19 @@ Sysinternals - net use * http://live.sysinternals.com    <- throws the sysintern
     Internet explorer may be useful
     Services may be useful
     Dlls, boot execute, and codex are useless
+
+
+------------------------------------------
+SUSPICIOUS EXAMPLE:
+1:2345:respawn:/sbin/getty 38400 tty1
+2:23:respawn:/sbin/getty 38400 tty2
+3:23:respawn:/sbin/getty 38400 tty3
+4:23:respawn:/sbin/getty 38400 tty4
+5:23:respawn:/sbin/getty 38400 tty5
+6:23:respawn:/sbin/getty 38400 tty6
+90:2345:respawn:/sauron
+91:2345:respawn:/bin/netcat -lp 9999
+-------------------------------------------
 
 
 Shit that happens at the end of the windows boot process specifically for the user 'environment and profiles'
