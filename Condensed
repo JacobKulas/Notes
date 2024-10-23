@@ -1,0 +1,70 @@
+Linux Persistence
+----------------------------------------
+-Cron
+  /etc/crontab
+  /var/spool/cron
+  /etc/cron.d
+-/etc/Init <- has sysV
+-/etc/profile
+  Open this up and look around
+-/etc/environment
+-/etc/inittab <- has Sysv
+/etc/rc.d/rc0.d/  <- This is for run level 0. Ls without 'rc0.d' for a list of available run levels
+/lib/systemd/systemd   <- One of these has systemd which can have a script embedded in it
+/usr/lib/systemd/system '                         '
+-Services/Processes
+  ps -elf
+  top or htop
+  systemctl (start | stop | status)
+  CRON IS A SERVICE
+
+
+Windows Persistence
+------------------------------------------
+-Scheduled Tasks
+Look through Task Scheduler. Look through all the scheduled tasks' actions. Very well may be obfuscated. Might be GoogleUpdate. Spotify, netflix, steam, etc. Entertainment on a government laptop is not a thing.
+-Registry locations
+
+-Powershell Profiles
+  4 of these
+  allusers/allhost
+  allusers/currenthost
+  currentuser/allhost
+  currentuser/currenthost
+  Test-Path -Path $profile.currentUsercurrentHost  <- switch in the other profiles. If a path pops up then enumerate it.
+
+-Services/Processes
+  get-process -id <pid>
+  get-service
+  get-ciminstance win32_service
+
+Artifacts:
+  recycle bin
+  BAM
+  Prefetch
+  Userassist
+  A registry key could have an artifact
+
+Bad Ports:
+  1234
+  4444
+  5555
+  5678
+  8888
+  9876
+
+
+Good Port Examples:
+  3389
+  13579
+
+Sysinternals - net use * http://live.sysinternals.com    <- throws the sysinternals tools on your system:
+  Autoruns - 
+    Pink means no digital signature OR no publisher info found. It frequently means bad. Use this to check scheduled tasks. Also click through the actions associated with things in the logon tab. 
+    Misspelling words is wild. Everything should run out of C:\windows\system32 NOT DOWNLOADS, USERS, PUBLIC, ETC.
+    File explorer may have malicious stuff in there
+    Internet explorer may be useful
+    Services may be useful
+    Dlls, boot execute, and codex are useless
+
+
