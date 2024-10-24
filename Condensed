@@ -13,10 +13,13 @@ Linux Persistence
 /lib/systemd/systemd   <- One of these has systemd which can have a script embedded in it
 /usr/lib/systemd/system <- One of these has systemd which can have a scripy embedded in it
 -Services/Processes
+  /var/log/syslog
   ps -elf <- When grepping here use quotes around what you're searching
   top or htop
-  systemctl (start | stop | status)
+  systemctl --type=timer --all 
+  (start | stop | status)
   CRON IS A SERVICE
+
 
 
 Windows Persistence
