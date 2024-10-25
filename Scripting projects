@@ -1,0 +1,110 @@
+# PowerShell Script to Check for Persistence Mechanisms on Windows
+
+# Function to check scheduled tasks
+function Check-ScheduledTasks {
+    Write-Host "Checking Scheduled Tasks..."
+    Get-ScheduledTask | Where-Object { $_.State -eq 'Ready' } | Format-Table -Property TaskName, State
+}
+
+# Function to check startup items
+function Check-StartupItems {
+    Write-Host "Checking Startup Items..."
+    $startupPaths = @(
+        "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\*",
+        "$env:PROGRAMDATA\Microsoft\Windows\Start Menu\Programs\StartUp\*",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run",
+        "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+    )
+    
+    foreach ($path in $startupPaths) {
+        if (Test-Path $path) {
+            Get-Item -Path $path | Format-Table
+        }
+    }
+}
+
+# Function to check services
+function Check-Services {
+    Write-Host "Checking Services..."
+    Get-Service | Where-Object { $_.Status -eq 'Running' } | Format-Table -Property Name, DisplayName, Status
+}
+
+# Function to check for suspicious files in common locations
+function Check-SuspiciousFiles {
+    Write-Host "Checking for suspicious files in common directories..."
+    $suspiciousDirs = @(
+        "$env:ProgramFiles",
+        "$env:ProgramFiles(x86)",
+        "$env:LocalAppData",
+        "$env:AppData"
+    )
+    
+    foreach ($dir in $suspiciousDirs) {
+        Get-ChildItem -Path $dir -Recurse -ErrorAction SilentlyContinue | Where-Object { $_.Attributes -eq 'Archive' -or $_.Attributes -eq 'Hidden' } | Select-Object FullName
+    }
+}
+
+# Main script execution
+Write-Host "Checking for persistence mechanisms on the system..."
+Check-ScheduledTasks
+Check-StartupItems
+Check-Services
+Check-SuspiciousFiles
+
+Write-Host "Persistence check completed."
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+#!/bin/bash
+
+echo "Checking for persistence mechanisms on the system..."
+
+# Check for cron jobs
+echo "Checking cron jobs..."
+echo "User cron jobs:"
+for user in $(cut -f1 -d: /etc/passwd); do
+    crontab -l -u $user 2>/dev/null | grep -v '^#' | grep -v '^$' && echo "User: $user"
+done
+
+echo "System-wide cron jobs:"
+cat /etc/crontab | grep -v '^#' | grep -v '^$'
+ls /etc/cron.d/
+
+# Check for systemd services
+echo -e "\nChecking systemd services..."
+systemctl list-unit-files --type=service | grep enabled
+
+# Check for init.d scripts
+echo -e "\nChecking init.d scripts..."
+ls /etc/init.d/
+
+# Check for startup applications in ~/.config/autostart
+echo -e "\nChecking for autostart applications..."
+if [ -d ~/.config/autostart ]; then
+    ls ~/.config/autostart/
+fi
+
+# Check for suspicious binaries in common directories
+echo -e "\nChecking for suspicious binaries in /usr/local/bin and /usr/bin..."
+for dir in /usr/local/bin /usr/bin; do
+    find $dir -type f -executable -exec ls -l {} \; | grep -vE 'bash|sh|python|ruby|perl|java|node|gcc|make'
+done
+
+# Check for known persistence files
+echo -e "\nChecking for known persistence files..."
+PERSISTENCE_FILES=(
+    "/etc/rc.local"
+    "/etc/profile.d/persistent.sh"
+)
+
+for file in "${PERSISTENCE_FILES[@]}"; do
+    if [ -f "$file" ]; then
+        echo "Found persistence file: $file"
+    fi
+done
+
+echo -e "\nPersistence check completed."
