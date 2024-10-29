@@ -1,0 +1,58 @@
+OSI
+Layer          PDU
+----------------------------
+Application  | Data
+Presentation | Data
+Session      | Data
+Transport    | Segment/Datagram
+Network      | Packet
+Data Link    | Frame
+Physical     | Bit
+
+-----------------------
+MAC Address Types:
+
+Unicast- one to one
+8th bit is off
+
+Multicast- one to many
+8th bit is on
+
+Broadcast- one to all
+All 8 bits are on
+------------------------
+Cisco Modes:
+Server
+Client
+Transparent - Be on the Trunking VLAN but pretend I aint here
+
+DTP (Dynamic Trunking Protocol)
+Should be disconfigured
+Automatically uodates what trunks are allowed
+
+Discovery Protocls
+______
+CDP (Cisco Discovery Protocol)
+FDP (Foundation Discovery Protocol)
+LLDP (Link Layer Discovery Protocol)
+
+STP (Spanning Tree Protocol)
+----------------------------
+Tells a network the fastest way to get to the default gateway. If a device has not been used yet it will not be apart of the 'tree'. The time it takes for all device to end up on the tree is called convergence.
+Root decision process
+1-Elect Root Bridge
+2-Identify the Root ports on non-bridge
+3-Identift the Designated port for each segment
+4-Set alternate ports to blocking state
+
+
+Layer 2 Attack Mitigation Tehcniques
+----------------------------------------
+Shutdown Unused ports
+Enable Port Security
+Enable Port Security 
+IP Source Guard
+Manaully assign STOP Root
+BPDU Guard
+
+
