@@ -1,0 +1,40 @@
+https://net.cybbh.io/-/public/-/jobs/878264/artifacts/modules/networking/slides-v4/01_data.html <- Networking slides
+http://10.50.23.214:8000/resources <- CTF networking
+https://net.cybbh.io/public/networking/latest/index.html <- Public Networking
+
+
+If the more fragment bit is set then it will be followed by more fragmented bits
+Offset is on from 2nd until last
+offset = ((MTU - (IHL*4)/8)    <- NOT COMPLETE FORMULA 
+If a packet has the more frament bit selected and no offset then it is the start of a fragmented stream
+TTL of 1 likely means someone is tracerouting you
+Linux default ICMP message: 64 bytes
+Windows default ICMP message: 40 bytes
+Traceroute on linux is UDP (by default)
+traceroute -U for UDP
+sudo traceroute -I for ICMP
+sudo traceroute -T for TCP
+
+Traceroute on Windows is ICMP (by default)
+
+IPv6 doesnt have broadcast, it has anycast
+
+TCP uses segments
+UDP uses datagrams
+
+PORTS
+0-1023 Well known
+1024-49151 Registered (User)
+49152-65535 Dynamic (Private)
+
+DHCPv4
+DORA
+Discover
+Offer
+request
+accept
+
+DHCPv6
+Solicit 
+advertise
+request reply
