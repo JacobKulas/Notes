@@ -56,3 +56,7 @@ Manaully assign STOP Root
 BPDU Guard
 
 
+Hops away
+How many hops away is a host. Find the traceroute (It is a bunch of Ping request and Time to live exceeded messages), then go to the bottom of that and the reply has a ttl. Subtract that from the OS's respective default TTL. That is how many hops away it is
+
+
