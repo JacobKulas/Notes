@@ -602,3 +602,24 @@ Network Mapping Tools
     Tutorialspoint Whiteboard
 
     Explain Everything Whiteboard
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MAKE A TEMPLATE FOR A DEVICE:
+Hostname:
+eth0:
+ports:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ssh then note host name
+ip a and note loopback + eth0 ip
+which nc 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+wget if port 80 is open
+if theres an index then cat it. nginx is a dead end.
+nc localhost 9007 <- bannergrabs port 9007
+'experimental FTP' is a dead end
+ssh vyos@blue-IPS 
+/29 is usually used to connect routers
+ethX is probably a default gateway for a subnet
+
+which nmap
+nmap -Pn <network id/cidr> -T4 -p21-23, 80 (--open) -v will make it tell you about shit
