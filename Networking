@@ -1,3 +1,7 @@
+Tatu Ylönen - developer of SSH
+
+
+
 OSI
 Layer          PDU
 ----------------------------
@@ -1031,3 +1035,6 @@ sudo nft add rule ip NAT POSTROUTING iif eth0 ip daddr 192.168.3.30  dnat 172.16
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 DELETE ALL THE STUFF CURRENTLY IN THE POST AND PREROUTING CHAINS AND THEN RUN THIS.
 
+
+A router receives a 5000 byte packet on eth0. The MTU for the outbound interface (eth1) is 1500. What would the fragmentation offset increment be with the conditions below?
+184
