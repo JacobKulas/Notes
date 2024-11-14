@@ -1,7 +1,9 @@
 Tatu Ylönen - developer of SSH
 
-
-
+Used to find how ports were open according to tcp full or half scan
+---
+tcpdump -n -r /usr/share/cctc/capstone-bpf.pcap 'ip[12:4] = 0x0a000068 and tcp' | grep "Flags \[S\.\]" | wc -l
+---
 OSI
 Layer          PDU
 ----------------------------
