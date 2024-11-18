@@ -2,7 +2,8 @@ Tatu Ylönen - developer of SSH
 
 Used to find how ports were open according to tcp full or half scan
 ---
-tcpdump -n -r /usr/share/cctc/capstone-bpf.pcap 'ip[12:4] = 0x0a000068 and tcp' | grep "Flags \[S\.\]" | wc -l
+tcpdump -n -r /usr/share/cctc/capstone-bpf.pcap 'ip[12:4] = 0x0a000068 and tcp' | grep "Flags \[S\.\]" | wc -l <- Tcp Full/Half Scan count of open ports
+tcpdump -i eth0/1 tcp port 23
 ---
 OSI
 Layer          PDU
