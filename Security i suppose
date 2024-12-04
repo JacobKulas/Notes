@@ -913,22 +913,180 @@ comrade:StudentMidwayPassword
 - Dont fart when doing exploitation
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Objectives
+
+Establish and maintain Linux persistence by:
+
+
+    Adding or hijacking a user account
+
+    Implementing boot process persistence
+
+    Adding or modifying a CRON job
+
+    Adding a kernel module (with a backdoor)
+
+    Additional methods outside the scope of the SG
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Enumerating For Privilege Escalation
+
+    What are the techniques and processes?
+
+        Is there any particular order?
+
+        Is there anything else you should be doing while on the box?
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SUDO
+
+    What is sudo?
+
+    Why should you consider it for privilege escalation?
+
+    What commands should you run?
+---------------------------------------------------------------------------------------------------------------------
+SUDO Gotchas!
+
+    Commands that can access the contents of other files
+
+    Commands that download files
+
+    Commands that execute other commands (i.e. editors)
+
+    Dangerous commands
+
+
+REFERENCES:
+
+    GTFO Bins: https://gtfobins.github.io/gtfobins/tcpdump/
+
+    sudoers manpage: https://linux.die.net/man/5/sudoers
+
+    SUDO configuration: https://wiki.archlinux.org/index.php/sudo#Configuration
+
+    Dangerous commands: https://www.tecmint.com/10-most-dangerous-commands-you-should-never-execute-on-linux/
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+find / -type f -perm /4000 -ls 2>/dev/null    <- SUID number is 4000
+find / -type f -perm /2000 -ls 2>/dev/null    <- SGID number is 2000
+find / -type f -perm /6000 -ls 2>/dev/null    <- Search both with 6000
+
+crontab -e
+m h d moy dow
+
+find / -type f -writable -o type d -writable 2>/dev/null <- world writable files that are writable by current user find
+find / -type f -perm /2 -o -type d -perm /2 2>/dev/null <- world writable files that are writable by other (prob use with a small directory, not root)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Vulnerable software and services
+Things that are installed on the system
+note their versions
+gtfobin or exploit database
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+unset history file
+clear logs
+Auditing System v 
+ausearch -p 22
+ausearch -m USER_LOGIN -sv no
+ausearch -ua edwards -ts yesterday -te now -i
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SystemD
+journalctl _TRANSPORT=audit
+journalctl _TRANSPORT=audit | grep 603
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Logs for Covering Tracks
+
+Logs typically housed in /var/log & useful logs:
+
+
+auth.log/secure
+	
+
+Logins/authentications
+
+lastlog
+Each users' last successful login time
+
+btmp
+Bad login attempts
+
+sulog
+Usage of SU command
+
+utmp
+Currently logged in users (W command)
+
+wtmp
+Permanent record on user on/off
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Working With Logs
+
+file /var/log/wtmp
+find /var/log -type f -mmin -10 2> /dev/null
+journalctl -f -u ssh
+journalctl -q SYSLOG_FACILITY=10 SYSLOG_FACILITY=4
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Reading Files
+
+cat /var/log/auth.log | egrep -v "opened|closed"
+awk '/opened/' /var/log/auth.log
+last OR lastb OR lastlog
+strings OR dd            # for data files
+more /var/log/syslog
+head/tail
+
+Control your output with pipes | and more
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Cleaning The Logs
+
+    Before we start cleaning, save the INODE!
+
+        Affect on the inode of using mv VS cp VS cat <- It changes it
+
+    Know what we are removing (Entry times? IP? Whole file? Etc.)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Clean the logs baby
+egrep -v '10:49*| 15:15:15' auth.log > auth.log2; cat auth.log2 > auth.log; rm auth.log2
+cat auth.log > auth.log2; sed -i 's/10.16.10.93/136.132.1.1/g' auth.log2; cat auth.log2 > auth.log
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestomp (Nix)
+
+    Access: updated when opened or used (grep, ls, cat, etc)
+
+    Modify: update content of file or saved
+
+    Change: file attribute change, file modified, moved, owner, permission
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+touch -c -t 201603051015 1.txt   # Explicit
+touch -r 3.txt 1.txt    # Reference
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Rsyslog
+
+    Newer Rsyslog references /etc/rsyslog.d/* for settings/rules
+
+    Older version only uses /etc/rsyslog.conf
+
+    Find out
+    grep "IncludeConfig" /etc/rsyslog.conf
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Reading Rsyslog
+
+    Utilizes severity (priority) and facility levels
+
+    Rules filter out, and can use keyword or number
+
+<facility>.<priority>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Rsyslog Examples
+
+kern.*                                                # All kernel messages, all severities
+mail.crit
+cron.!info,!debug
+*.*  @192.168.10.254:514                                                    # Old format
+*.* action(type="omfwd" target="192.168.10.254" port="514" protocol="udp")   # New format
+#mail.*
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
