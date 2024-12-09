@@ -1,0 +1,111 @@
+Every Question is 5 points, do not waste time.
+RTFFQ
+Hijacking last
+Buffer Overflow last
+
+Step 1 - Recon:
+ping
+nmap --script=http.enum
+netcat
+Step2 - Webpage
+Click the links
+
+atempt injection: ; <command>
+If injection is working then upload ssh keys
+cat /etc/hosts
+cat /etc/passwd
+
+SQL authentication bypass:
+Username: 'Or 1='1
+Password: 'Or 1='1
+
+POST:
+f12
+input something
+network
+click on POST->request
+click on raw
+put that bitch in there
+
+GET
+Identify vulnerable fields
+Identify number of columns
+Modify Golden Statement
+
+Make a graphical representation of the database (This is an example):
+Siteusers
+    Customer
+           ID
+           NAME
+           ACCOUNT
+    Net_products
+           ID
+           Quantity
+
+
+
+
+Windows logs command (requires admin)
+auditpol
+Check home directories
+
+Linux
+crontab
+ps -elf                   <-following parent PID is important at some point
+top
+htop
+sudo -l
+ps -elf
+netstat -ant
+SUID/GUID bits
+Check home directories
+
+Binary analysis/Reverse Engineering
+strings the application
+Open Ghidra
+search for a good string
+Logic and reasoning till victory
+
+
+dll hijacking/ .exe hijacking
+You don't have to build the script, just replace the old thing with a provided script
+registries
+schtasks
+descriptions in services
+
+Buffer Overflow
+refer to main notes
+make sure to do everything from the box you intend to exploit
+gdb dissass functions can be in functions
+proxychains nmap --script=http-enum.nse 192.168.28.100
+
+
+
+
+
+
+
+Commands used for first security map
+-----------------------------------------------------------------------------------------------------------------------------------------
+ssh -MS /tmp/jump student@10.50.27.90
+for i in {1..254}; do (ping -c 1 172.16.82.$i | grep "bytes from" &) ; done
+ssh -S /tmp/jump jump -O forward -D9050
+Proxychains ss -ntlp
+Proxychains nmap <ips>
+Verify all ports with Proxychains nc
+ssh -S /tmp/jump jump -O forward -L1111:192.168.28.100:80 -L2222:192.168.28.100:2222 -L3333:192.168.28.111:80 -L5555:192.168.28.111:2222
+ssh -MS /tmp/t1 <creds>@127.0.0.1 -p<tunnel to first ssh target>
+for i in {1..254}; do (ping -c 1 172.16.82.$i | grep "bytes from" &) ; done
+ssh -S /tmp/jump jump -O cancel -D9050
+ssh -S /tmp/t1 t1 -O forward -D9050
+proxychains nmap <ips>
+proxychains nc <ip> <port>
+ssh -S /tmp/t1 t1 -O forward -L 2323:192.168.150.253:3201 -L4567:100.200.25.35:80
+proxychains nmap --script=http-enum.nse 192.168.28.100
+
+Math
+______________________________________________________________________________________________________________________________________________________________________________________________
+If x >> 4 = 32              <- Its a bit shift this would evaluate true if it is 512
+       
+  1    0  0    0  1  0 0 0 0 0
+512  256  128 64 32 16 8 4 2 1
