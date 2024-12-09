@@ -2,10 +2,51 @@ Probably make snort an autostart service the same way we did the sensor
 service snort start
 service enable snort
 
-This is part of the default snort config: /etc/snort.conf
+This is part of the default snort config: snort.lua
 -----------------------------------------------
-# syslog
-# output alert_syslog: host=<Ubuntu2 ip>:514, LOG_AUTH LOG_ALERT          <- remove the # and this will send an alert to ubuntu2 ip on port 514 as an alert level message
+-- Default alert syslog configuration
+-- alert_syslog = {
+--    enabled = true,
+--    host = "192.168.1.100",
+--    port = 514,
+--    facility = "local7",
+--    severity = "alert",
+--    protocol = "udp"
+--}
+
+###ADD THIS###
+-- Syslog output for Critical alerts (priority 1)
+syslog_alert = {
+    enabled = true,
+    host = "<Ubuntu2 ip>",      -- Syslog server IP address
+    port = 514,                  -- Syslog server port
+    facility = "local7",         -- Syslog facility
+    severity = "alert",          -- Syslog severity for critical alerts (priority 1)
+    protocol = "udp",            -- Syslog protocol (UDP or TCP)
+    log = "alerts"               -- Only alert-level logs are sent
+}
+
+-- Syslog output for Medium priority alerts (priority 2)
+syslog_notice = {
+    enabled = true,
+    host = "<Ubuntu2 ip>",      -- Syslog server IP address
+    port = 514,                  -- Syslog server port
+    facility = "snort",         -- Syslog facility
+    severity = "notice",         -- Syslog severity for medium-priority alerts (priority 2)
+    protocol = "udp",            -- Syslog protocol (UDP or TCP)
+    log = "log"                  -- Medium-priority logs are sent
+}
+
+-- Syslog output for Low priority (info-level) alerts (priority 3)
+syslog_info = {
+    enabled = true,
+    host = "Ubuntu2 ip",      -- Syslog server IP address
+    port = 514,                  -- Syslog server port
+    facility = "snort",         -- Syslog facility
+    severity = "info",           -- Syslog severity for low-priority alerts (priority 3)
+    protocol = "udp",            -- Syslog protocol (UDP or TCP)
+    log = "log"                  -- Low-priority logs are sent
+}
 -----------------------------------------------
 
 
