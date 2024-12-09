@@ -1,1 +1,34 @@
+Probably make snort an autostart service the same way we did the sensor
+service snort start
+service enable snort
+
+This is part of the default snort config: /etc/snort.conf
+-----------------------------------------------
+# syslog
+# output alert_syslog: host=<Ubuntu2 ip>:514, LOG_AUTH LOG_ALERT          <- remove the # and this will send an alert to ubuntu2 ip on port 514 as an alert level message
+-----------------------------------------------
+
+
+
+
+
+
+
+
+UBUNTU 2.0: Make an extra Ubuntu device because we need a syslog server
+apt install rsyslog -y
+systemctl enable rsyslog
+cat /etc/rsyslog.conf | grep "provides UDP syslog reception" <- Note this line
+nano /etc/rsyslog.conf                                       <- look around for the grep line and uncomment it.
+---------------------------------------------------------------------------------------
+right under ###input(type="imtcp"port="514")### put the following:
+
+$template RemInputLogs, "/var/log/remotelogs/%FROMHOST-IP%/%PROGRAMNAME%.log"
+*.* ?RemInputLogs
+
+----------------------------------------------------------------------------------------
+This will alert on LOG_AUTH 
+auth,authpriv.* /var/log/auth.log
+
+
 
